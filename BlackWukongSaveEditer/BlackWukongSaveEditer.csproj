@@ -1,0 +1,188 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>BlackWukongSaveEditer</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <RuntimeIdentifiers Condition="$([MSBuild]::GetTargetFrameworkVersion('$(TargetFramework)')) &gt;= 8">win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifiers Condition="$([MSBuild]::GetTargetFrameworkVersion('$(TargetFramework)')) &lt; 8">win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+    <UseWinUI>true</UseWinUI>
+	  <PublishAot>true</PublishAot>
+	  <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
+    <EnableMsixTooling>true</EnableMsixTooling>
+  <PackageCertificateKeyFile>BlackWukongSaveEditer.pfx</PackageCertificateKeyFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\backimage.jpg" />
+    <None Remove="Styles\Button.xaml" />
+    <None Remove="Styles\Titlebar.xaml" />
+    <None Remove="Views\GameSavePage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.5" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240923002" />
+    <PackageReference Include="WinUIEx" Version="2.4.2" />
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <!--
+    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+    Tools extension to be activated for this project even if the Windows App SDK Nuget
+    package has not yet been restored.
+  -->
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="b1.Managed">
+      <HintPath>Dll\b1.Managed.dll</HintPath>
+    </Reference>
+    <Reference Include="b1.Native">
+      <HintPath>Dll\b1.Native.dll</HintPath>
+    </Reference>
+    <Reference Include="b1.NativePlugins">
+      <HintPath>Dll\b1.NativePlugins.dll</HintPath>
+    </Reference>
+    <Reference Include="B1UI_GSE.Script">
+      <HintPath>Dll\B1UI_GSE.Script.dll</HintPath>
+    </Reference>
+    <Reference Include="BtlSvr.Main">
+      <HintPath>Dll\BtlSvr.Main.dll</HintPath>
+    </Reference>
+    <Reference Include="Diana.Client.Common">
+      <HintPath>Dll\Diana.Client.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Diana.Common">
+      <HintPath>Dll\Diana.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Diana.Server.Common">
+      <HintPath>Dll\Diana.Server.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>Dll\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="GSE.Core">
+      <HintPath>Dll\GSE.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GSE.GSNet">
+      <HintPath>Dll\GSE.GSNet.dll</HintPath>
+    </Reference>
+    <Reference Include="GSE.GSSdk">
+      <HintPath>Dll\GSE.GSSdk.dll</HintPath>
+    </Reference>
+    <Reference Include="GSE.OnlineBase">
+      <HintPath>Dll\GSE.OnlineBase.dll</HintPath>
+    </Reference>
+    <Reference Include="GSE.ProtobufDB">
+      <HintPath>Dll\GSE.ProtobufDB.dll</HintPath>
+    </Reference>
+    <Reference Include="GUR.Runtime">
+      <HintPath>Dll\GUR.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Dll\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime">
+      <HintPath>Dll\ILRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil">
+      <HintPath>Dll\ILRuntime.Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Mdb">
+      <HintPath>Dll\ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Pdb">
+      <HintPath>Dll\ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="LiteNetLib">
+      <HintPath>Dll\LiteNetLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Dll\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+      <HintPath>Dll\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Dll\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>Dll\Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>Dll\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>Dll\Mono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.WebBrowser">
+      <HintPath>Dll\Mono.WebBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="Novell.Directory.Ldap">
+      <HintPath>Dll\Novell.Directory.Ldap.dll</HintPath>
+    </Reference>
+    <Reference Include="Protobuf.RunTime">
+      <HintPath>Dll\Protobuf.RunTime.dll</HintPath>
+    </Reference>
+    <Reference Include="Sentry">
+      <HintPath>Dll\Sentry.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Internals">
+      <HintPath>Dll\System.ServiceModel.Internals.dll</HintPath>
+    </Reference>
+    <Reference Include="UnrealEngine">
+      <HintPath>Dll\UnrealEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnrealEngine.Runtime">
+      <HintPath>Dll\UnrealEngine.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\Titlebar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\GameSavePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <!--
+    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
+    Explorer "Package and Publish" context menu entry to be enabled for this project even if
+    the Windows App SDK Nuget package has not yet been restored.
+  -->
+  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+</Project>

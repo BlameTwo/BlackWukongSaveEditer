@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BlackWukongSaveEditer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "BlackWukongSaveEditer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
